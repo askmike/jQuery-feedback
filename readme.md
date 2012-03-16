@@ -41,3 +41,12 @@ Imagine you need to ajax stuff from an API:
 		// or remove it like so
 		// $.feedback(); 
     });
+
+### Browser support
+
+Tested in:
+
+* IE7, IE8 and IE9
+* Chrome
+* Safari (5)
+* Firefox (8)
