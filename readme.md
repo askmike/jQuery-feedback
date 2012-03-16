@@ -22,9 +22,9 @@ Not only is it easier for you to sent feedback, but it will also get more famili
 
 $.feedback( message, [spinner, time] )
 
-*message:* (string) the feedback in text you want to provide to your users.  
-*spinner:* (boolean, default: true) if a spinner should be shown to indicate that you are doing something.  
-*time:* (int, default: 5000) the time in milliseconds the message should be displayed (in case of a long or important text), this is only possible when spinner is false (because else it stays there until updated).
+**message:** (string) the feedback in text you want to provide to your users.  
+**spinner:** (boolean, default: false) if a spinner should be shown to indicate that you are doing something.  
+**time:** (int, default: 5000) the time in milliseconds the message should be displayed (in case of a long or important text), this is only possible when spinner is false (because else it stays there until updated).
 
 ### Demo
 
