@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>
+			jQuery feedback example
+		</title>
+		<style>
+			body {
+				width:400px;
+				margin:100px auto;
+			}
+		</style>
+    </head>
+    <body>
+		<form id='exampleForm'>
+			<p>Just hit submit (it's a dummy form btw)</p>
+			<p><input name='name' /></p>
+			<p><input name='email' /></p>
+			<p><textarea></textarea></p>
+			<p><input name='submit' type='submit' /></p>
+		</form>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="spin.min.js"></script>
+		<script type="text/javascript" src="feedback.js"></script>
+		<script>
+			
+			$('#exampleForm').submit(function(e){
+				e.preventDefault();
+				
+				$.feedback( 'Submitting your data with care ...', true );
+				setTimeout( submitted, 2000 );
+			});
+			
+			function submitted() {
+				$.feedback( 'Your data is submitted!' );
+			}
+			
+		</script>
+	</body>
+</html>
