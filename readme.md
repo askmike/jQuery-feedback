@@ -2,7 +2,7 @@
 
 jQuery feedback provides an easy way to communicate feedback directly to the user.
 
-The goal of this project is to provide an as easy to use tool as `alert()` wich is much more user friendly for your users.
+The goal of this project is to provide a tool as easy to use as `alert()` but much more user friendly from a user perspective.
 
 jQuery feedback creates a div with your input and an optional spinner (provided by [spin.js](http://fgnass.github.com/spin.js/)) to indicate loading. You can use this spinner to let the user know you are not done yet (waiting for extra data from a database or for an email being sent or some other slow process).
 
@@ -28,7 +28,7 @@ $.feedback( message, [spinner, time] )
 
 ### Demo
 
-[online demo](http://mikevanrossum.nl/stuff/jQuery-feedback/example.html)
+Check out a live demo and more on the [project page](http://mikevanrossum.nl/projects/jquery-feedback-plugin/)
 
 ### Example
 

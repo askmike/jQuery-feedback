@@ -90,29 +90,24 @@
 				
 				return div;
 			},
-		// this function takes the dom element off dom or creates a new one
+		// take the dom element off dom or creates a new one
 			getElem = function() {
-				if( elem[0] ) {
-					return elem.detach();
-				} else {
-					return createElem();
-				}
+				return elem[0] ? elem.detach() : createElem();
 			},
-		// this function updates the text, fadesIn and appends to the dom
+		// update the text, fadeIn and append to the dom
 			update = function( feedback ) {
 				
 				var el = getElem();
 			
-				el
-				.find( '.content' )
-					.find( 'p' )
-						.text( feedback )
+				el.find( '.content' )
+						.find( 'p' )
+							.text( feedback )
+						.end()
 					.end()
-				.end()
-				.appendTo( body )
-				.fadeIn( settings.fadeSpeed )
-				.find( '#jFeedbackSpin' )
-					.spin( spin ? settings.spin : false );
+					.appendTo( body )
+					.fadeIn( settings.fadeSpeed )
+					.find( '#jFeedbackSpin' )
+						.spin( spin ? settings.spin : false );
 					
 				if(!spin) {
 					
@@ -130,7 +125,7 @@
 			}
 
 			
-		if( typeof parameter == 'string' ) {
+		if( typeof parameter === 'string' ) {
 			update( parameter );
 		} else if( !parameter && elem[0] ) {
 			remove();
