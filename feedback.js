@@ -15,7 +15,7 @@
 		var p,
 			body = $( 'body' ),
 			elem = $( '#jFeedback' ),
-			run = elem.data( 'feedback' ) || 0,
+			run = elem.data( 'feedback' ),
 		
 		// these are the default settings
 			settings = $.extend({
@@ -59,6 +59,10 @@
 						position: 'relative',
 						top: '-16px'	
 					}
+				},
+				p: {
+					margin: 0,
+					float: 'left'
 				}
 			}, options),
 			
@@ -75,16 +79,13 @@
 						.hide(),
 				// the content div
 					content = $( '<div/>', {
-						'class': 'content'
+						'class': 'jFeedbackContent'
 					})
 						.css( style ? settings.content : {} )
 						.appendTo( div ),
 				// the p that holds the text
 					p = $( '<p/>' )
-						.css({ 
-							margin: 0,
-							float: 'left'
-						})
+						.css( style ? settings.p : {} )
 						.appendTo( content ),
 				// the div that holds the spinner
 					spin = $( '<div/>', {
@@ -104,7 +105,7 @@
 				var el = getElem();
 			
 				el
-					.find( '.content' )
+					.find( '.jFeedbackContent' )
 						.find( 'p' )
 							.text( feedback )
 						.end()
