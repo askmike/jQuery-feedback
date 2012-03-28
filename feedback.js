@@ -15,6 +15,7 @@
 		var p,
 			body = $( 'body' ),
 			elem = $( '#jFeedback' ),
+			run = elem.data( 'feedback' ) || 0,
 		
 		// these are the default settings
 			settings = $.extend({
@@ -39,19 +40,25 @@
 					'z-index': 10
 				},
 				spin: {
-					lines: 10, // The number of lines to draw
-					length: 2, // The length of each line
-					width: 5, // The line thickness
-					radius: 11, // The radius of the inner circle
-					color: '#fff', // #rgb or #rrggbb
-					speed: 1.2, // Rounds per second
-					trail: 48, // Afterglow percentage
-					shadow: false, // Whether to render a shadow
-					hwaccel: false, // Whether to use hardware acceleration
-					className: 'spinner', // The CSS class to assign to the spinner
-					zIndex: 2e9, // The z-index (defaults to 2000000000)
-					top: 7, // Top position relative to parent in px
-					left: 505 // Left position relative to parent in px
+					opts: {
+						lines: 10, // The number of lines to draw
+						length: 2, // The length of each line
+						width: 5, // The line thickness
+						radius: 11, // The radius of the inner circle
+						color: '#fff', // #rgb or #rrggbb
+						speed: 1.2, // Rounds per second
+						trail: 48, // Afterglow percentage
+						shadow: false, // Whether to render a shadow
+						hwaccel: false, // Whether to use hardware acceleration
+						className: 'spinner', // The CSS class to assign to the spinner
+						zIndex: 2e9, // The z-index (defaults to 2000000000)
+						top: 7, // Top position relative to parent in px
+						left: 505 // Left position relative to parent in px
+					},
+					css: {
+						position: 'relative',
+						top: '-16px'	
+					}
 				}
 			}, options),
 			
@@ -64,6 +71,7 @@
 						'id': 'jFeedback'
 					})
 						.css( style ? settings.jFeedback : {} )
+						.data('feedback', 0)
 						.hide(),
 				// the content div
 					content = $( '<div/>', {
@@ -82,10 +90,7 @@
 					spin = $( '<div/>', {
 						'id': 'jFeedbackSpin'
 					})	
-						.css({ 
-							position: 'relative',
-							top: '-16px'
-						 })
+						.css( style ? settings.spin.css : {} )
 						.appendTo( content );
 				
 				return div;
@@ -96,10 +101,10 @@
 			},
 		// update the text, fadeIn and append to the dom
 			update = function( feedback ) {
-				
 				var el = getElem();
 			
-				el.find( '.content' )
+				el
+					.find( '.content' )
 						.find( 'p' )
 							.text( feedback )
 						.end()
@@ -107,28 +112,31 @@
 					.appendTo( body )
 					.fadeIn( settings.fadeSpeed )
 					.find( '#jFeedbackSpin' )
-						.spin( spin ? settings.spin : false );
+						.spin( spin ? settings.spin.opts : false );
 					
 				if(!spin) {
 					
-				// we can't use $().delay because we want to be able to force hide
-					function fadeOutFeedback() {
-						el.fadeOut( settings.fadeSpeed );
-					}
+					el.click( remove(el) );
+					// we can't use $().delay because we want to be able to force hide
+					setTimeout( remove(el), time ? time : 5000  );
 					
-					el.click( fadeOutFeedback );
-					setTimeout( fadeOutFeedback, time ? time : 5000  );
 				}
 			},
-			remove = function() {
-				elem.fadeOut( settings.fadeSpeed );
+			// using a closure so that we can reference this function with a parameter
+			remove = function( el ) {
+				return function() {
+					if( el.data('feedback') === run ) {
+						el.fadeOut( settings.fadeSpeed );
+					}	
+				}
 			}
 
 			
 		if( typeof parameter === 'string' ) {
 			update( parameter );
+			elem.data( 'feedback', ++run );
 		} else if( !parameter && elem[0] ) {
-			remove();
+			remove( elem );
 		}
 		
 		//add init and ability to change settings
